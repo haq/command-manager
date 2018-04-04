@@ -1,5 +1,8 @@
 package me.ihaq.commandmanager;
 
+import me.ihaq.commandmanager.exception.CommandArgumentException;
+import me.ihaq.commandmanager.exception.CommandParseException;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +10,7 @@ import java.util.Map;
 public enum CommandManager {
     INSTANCE;
 
-    public String PREFIX = "!";
+    private String prefix = "!";
     public final Map<String[], Command> COMMANDS = new HashMap<>();
 
     public void register(String name, Command command) {
@@ -22,30 +25,37 @@ public enum CommandManager {
         COMMANDS.entrySet().removeIf(entry -> entry.getValue() == command);
     }
 
-    /**
-     * Tries to call a command depending on what the user entered.
-     *
-     * @param rawMessage The message the user entered.
-     */
-    public void processCommand(String rawMessage) {
-        boolean safe = rawMessage.split(PREFIX, 2).length > 1;
+    public void parseCommand(String rawMessage) throws CommandParseException, CommandArgumentException {
+
+        if (!rawMessage.startsWith(prefix))
+            return;
+
+        boolean safe = rawMessage.split(prefix, 2).length > 1;
 
         if (safe) {
 
             String beheadedRawMessage = rawMessage.substring(1);
+
             String[] args = beheadedRawMessage.split(" ");
-            Command command = getCommand(args[0]);
+            String label = args[0];
+
+            if (args.length == 1)
+                args = new String[]{""};
+            else
+                args = Arrays.copyOfRange(args, 1, args.length);
+
+            Command command = getCommand(label);
 
             if (command != null) {
-                if (!command.onCommand(args)) {
-                    System.out.println(command.usage());
+                if (!command.onCommand(label, args)) {
+                    throw new CommandArgumentException(command.usage());
                 }
             } else {
-                System.out.println("Command not found, please try '" + PREFIX + "help'.");
+                throw new CommandParseException("Command not found.");
             }
 
         } else {
-            System.out.println("Command not found, please try '" + PREFIX + "help'.");
+            throw new CommandParseException("Command not found.");
         }
     }
 
@@ -72,5 +82,7 @@ public enum CommandManager {
                 .anyMatch(s -> s.equalsIgnoreCase(text));
     }
 
-
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
 }
