@@ -20,5 +20,13 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>bintray-ihaq-maven</id>
+            <name>ihaq-maven</name>
+            <url>https://api.bintray.com/maven/ihaq/maven/command-manager/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
 
 </project>

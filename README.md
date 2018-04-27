@@ -1,3 +1,4 @@
+[ ![Download](https://api.bintray.com/packages/ihaq/maven/command-manager/images/download.svg) ](https://bintray.com/ihaq/maven/command-manager/_latestVersion)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg) ](LICENSE)
 
 # CommandManager
