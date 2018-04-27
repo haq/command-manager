@@ -7,24 +7,46 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum CommandManager {
-    INSTANCE;
+public class CommandManager {
 
-    private String prefix = "!";
-    public final Map<String[], Command> COMMANDS = new HashMap<>();
+    private final Map<String[], Command> commandMap = new HashMap<>();
+    private String prefix;
 
+    /**
+     * @param prefix the prefix you wan't to be used for the command manager
+     */
+    public CommandManager(String prefix) {
+        this.prefix = prefix;
+    }
+
+    /**
+     * @param name    the name of the command
+     * @param command the command object that corresponds to the command
+     */
     public void register(String name, Command command) {
         register(new String[]{name}, command);
     }
 
+    /**
+     * @param names   the name/alias of the command
+     * @param command the command object that corresponds to the command
+     */
     public void register(String[] names, Command command) {
-        COMMANDS.put(names, command);
+        commandMap.put(names, command);
     }
 
+    /**
+     * @param command the command object to be searched for and removed
+     */
     public void unregister(Command command) {
-        COMMANDS.entrySet().removeIf(entry -> entry.getValue() == command);
+        commandMap.entrySet().removeIf(entry -> entry.getValue() == command);
     }
 
+    /**
+     * @param rawMessage the raw message entered by the user
+     * @throws CommandParseException    thrown if no command was found
+     * @throws CommandArgumentException thrown if the command was run and its onCommand method returned false
+     */
     public void parseCommand(String rawMessage) throws CommandParseException, CommandArgumentException {
 
         if (!rawMessage.startsWith(prefix))
@@ -37,17 +59,17 @@ public enum CommandManager {
             String beheadedRawMessage = rawMessage.substring(1);
 
             String[] args = beheadedRawMessage.split(" ");
-            String label = args[0];
+            String commandName = args[0];
 
-            if (args.length == 1)
+            if (args.length == 1) // no arguments are provided
                 args = new String[]{""};
             else
-                args = Arrays.copyOfRange(args, 1, args.length);
+                args = Arrays.copyOfRange(args, 1, args.length); // removing the command name
 
-            Command command = getCommand(label);
+            Command command = getCommand(commandName);
 
             if (command != null) {
-                if (!command.onCommand(label, args)) {
+                if (!command.onCommand(args)) {
                     throw new CommandArgumentException(command.usage());
                 }
             } else {
@@ -66,23 +88,10 @@ public enum CommandManager {
      * @return Returns the Command if found
      */
     private Command getCommand(String name) {
-        return COMMANDS.entrySet().stream()
-                .filter(commandEntry -> contains(commandEntry.getKey(), name))
+        return commandMap.entrySet().stream()
+                .filter(commandEntry -> Arrays.stream(commandEntry.getKey()).anyMatch(s -> s.equalsIgnoreCase(name)))
                 .map(Map.Entry::getValue)
                 .findFirst().orElse(null);
     }
 
-    /**
-     * @param list The list you want to search the text for
-     * @param text The text you are searching for
-     * @return Returns whether or not the list contains the text
-     */
-    private boolean contains(String[] list, String text) {
-        return Arrays.stream(list)
-                .anyMatch(s -> s.equalsIgnoreCase(text));
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
 }

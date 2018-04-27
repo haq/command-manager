@@ -1,14 +1,17 @@
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg) ](LICENSE)
+
 # CommandManager
 A simple command manager for Java.
 
 ## Creating a Command
 
 ```java
-    public class TestCommand implements Command {
-        @Override
-        public boolean onCommand(String label, String[] args) {
+    private class TestCommand implements Command {
 
-            // handle your command
+        @Override
+        public boolean onCommand(String[] args) {
+
+            // process your command
 
             return false; // whether the command was successful or not
         }
@@ -26,17 +29,34 @@ public class Main {
 
     public static void main(String[] args) {
 
+        CommandManager commandManager = new CommandManager("-");
         TestCommand test = new TestCommand();
 
         // registering
-        CommandManager.INSTANCE.register("test", test);
+        commandManager.register("test", test);
         // or
-        CommandManager.INSTANCE.register(new String[]{"test", "tst", "t"}, test);
-
+        commandManager.register(new String[]{"test", "tst", "t"}, test);
 
         // un-registering
-        CommandManager.INSTANCE.unregister(test);
+        commandManager.unregister(test);
     }
+
+    private static class TestCommand implements Command {
+
+        @Override
+        public boolean onCommand(String[] args) {
+
+            // process your command
+
+            return false; // whether the command was successful or not
+        }
+
+        @Override
+        public String usage() {
+            return "test [arg1] [arg2]";
+        }
+    }
+
 }
 ```
 
@@ -45,17 +65,37 @@ public class Main {
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        CommandManager commandManager = new CommandManager("-");
 
-        // every command must start with the prefix defined in CommandManager
+        commandManager.register(new String[]{"test", "tst", "t"}, new TestCommand());
+
+        // every command must start with the prefix passed in the constructor of CommandManager
         try {
-            CommandManager.INSTANCE.parseCommand(scan.nextLine());
-        } catch (CommandParseException | CommandArgumentException e) {
+            commandManager.parseCommand("-t"); // will call TestCommand
+        } catch (CommandParseException e) {
+            // handle parse exception
+            e.printStackTrace();
+        } catch (CommandArgumentException e) {
+            // handle argument exception
             e.printStackTrace();
         }
     }
+
+    private static class TestCommand implements Command {
+
+        @Override
+        public boolean onCommand(String[] args) {
+
+            // process your command
+
+            return false; // whether the command was successful or not
+        }
+
+        @Override
+        public String usage() {
+            return "test [arg1] [arg2]";
+        }
+    }
+
 }
 ```
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
