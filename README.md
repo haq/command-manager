@@ -124,7 +124,7 @@ Replace VERSION with the verion above.
 #### Gradle
 ```gradle
 dependencies {
-    compile 'me.ihaq.configmanager:ConfigManager:VERSION'
+    compile 'me.ihaq.commandmanager:command-manager:VERSION'
 }
 
 repositories {
