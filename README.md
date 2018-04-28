@@ -100,3 +100,34 @@ public class Main {
 
 }
 ```
+
+## Download
+[ ![Download](https://api.bintray.com/packages/ihaq/maven/command-manager/images/download.svg) ](https://bintray.com/ihaq/maven/command-manager/_latestVersion)
+
+Replace VERSION with the verion above.
+
+#### Maven
+```xml
+<repository>
+    <id>jcenter</id>
+    <name>jcenter-bintray</name>
+    <url>http://jcenter.bintray.com</url>
+</repository>
+
+<dependency>
+    <groupId>me.ihaq.commandmanager</groupId>
+    <artifactId>command-manager</artifactId>
+    <version>VERSION</version>
+</dependency>
+```
+
+#### Gradle
+```gradle
+dependencies {
+    compile 'me.ihaq.configmanager:ConfigManager:VERSION'
+}
+
+repositories {
+    jcenter()
+}
+```
