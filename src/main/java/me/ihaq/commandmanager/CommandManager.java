@@ -62,7 +62,7 @@ public class CommandManager {
             String commandName = args[0];
 
             if (args.length == 1) // no arguments are provided
-                args = new String[]{""};
+                args = new String[0];
             else
                 args = Arrays.copyOfRange(args, 1, args.length); // removing the command name
 
