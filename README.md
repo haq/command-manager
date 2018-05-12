@@ -1,8 +1,7 @@
-[ ![Download](https://api.bintray.com/packages/ihaq/maven/command-manager/images/download.svg) ](https://bintray.com/ihaq/maven/command-manager/_latestVersion)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg) ](LICENSE)
 
 # CommandManager
-A simple command manager for Java.
+A simple command manager for Java application.
 
 ## Creating a Command
 
@@ -102,32 +101,31 @@ public class Main {
 ```
 
 ## Download
-[ ![Download](https://api.bintray.com/packages/ihaq/maven/command-manager/images/download.svg) ](https://bintray.com/ihaq/maven/command-manager/_latestVersion)
-
-Replace VERSION with the verion above.
 
 #### Maven
 ```xml
 <repository>
-    <id>jcenter</id>
-    <name>jcenter-bintray</name>
-    <url>http://jcenter.bintray.com</url>
+    <id>ihaq-me</id>
+    <name>ihaq-maven</name>
+    <url>http://maven.ihaq.me</url>
 </repository>
 
 <dependency>
-    <groupId>me.ihaq.commandmanager</groupId>
+    <groupId>me.ihaq</groupId>
     <artifactId>command-manager</artifactId>
-    <version>VERSION</version>
+    <version>1.0</version>
 </dependency>
 ```
 
 #### Gradle
 ```gradle
-dependencies {
-    compile 'me.ihaq.commandmanager:command-manager:VERSION'
+repositories {
+    maven {
+        url "http://maven.ihaq.me"
+    }
 }
 
-repositories {
-    jcenter()
+dependencies {
+    compile 'me.ihaq:command-manager:1.0'
 }
 ```
