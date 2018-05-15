@@ -113,7 +113,7 @@ public class Main {
 <dependency>
     <groupId>me.ihaq</groupId>
     <artifactId>command-manager</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -126,6 +126,6 @@ repositories {
 }
 
 dependencies {
-    compile 'me.ihaq:command-manager:1.0'
+    compile 'me.ihaq:command-manager:1.0.1'
 }
 ```
