@@ -85,7 +85,7 @@ public class CommandManager {
      * Get the command by one of its aliases.
      *
      * @param name The name of the command you are looking for, should be one of the commands aliases.
-     * @return Returns the Command if found
+     * @return returns the Command if found
      */
     private Command getCommand(String name) {
         return commandMap.entrySet().stream()
@@ -94,4 +94,10 @@ public class CommandManager {
                 .findFirst().orElse(null);
     }
 
+    /**
+     * @return returns the HashMap that contains all the commands
+     */
+    public Map<String[], Command> getCommandMap() {
+        return commandMap;
+    }
 }
