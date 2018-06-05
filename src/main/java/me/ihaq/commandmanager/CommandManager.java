@@ -50,7 +50,7 @@ public class CommandManager {
     public void parseCommand(String rawMessage) throws CommandParseException, CommandArgumentException {
 
         if (!rawMessage.startsWith(prefix))
-            return;
+            throw new CommandParseException("Message does not start with prefix.");
 
         boolean safe = rawMessage.split(prefix, 2).length > 1;
 
@@ -100,4 +100,12 @@ public class CommandManager {
     public Map<String[], Command> getCommandMap() {
         return commandMap;
     }
+
+    /**
+     * @return returns the prefix required for all commands
+     */
+    public String getPrefix() {
+        return prefix;
+    }
+
 }
