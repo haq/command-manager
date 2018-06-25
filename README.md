@@ -107,13 +107,13 @@ public class Main {
 <repository>
     <id>ihaq-me</id>
     <name>ihaq-maven</name>
-    <url>http://maven.ihaq.me</url>
+    <url>http://maven.ihaq.me/repo/</url>
 </repository>
 
 <dependency>
     <groupId>me.ihaq</groupId>
     <artifactId>command-manager</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -121,11 +121,11 @@ public class Main {
 ```gradle
 repositories {
     maven {
-        url "http://maven.ihaq.me"
+        url "http://maven.ihaq.me/repo/"
     }
 }
 
 dependencies {
-    compile 'me.ihaq:command-manager:1.0.1'
+    compile 'me.ihaq:command-manager:1.0.2'
 }
 ```
