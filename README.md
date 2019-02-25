@@ -1,9 +1,9 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg) ](LICENSE)
 
-# CommandManager
+# command-manager
 A simple command manager for Java application.
 
-## Creating a Command
+## Creating
 
 ```java
     private class TestCommand implements Command {
@@ -23,7 +23,7 @@ A simple command manager for Java application.
     }
 ```
 
-## Registering a Command
+## Registering
 ```java
 public class Main {
 
@@ -60,7 +60,7 @@ public class Main {
 }
 ```
 
-## Calling a Command
+## Calling
 ```java
 public class Main {
 
@@ -101,30 +101,16 @@ public class Main {
 ```
 
 ## Download
-
-#### Maven
 ```xml
 <repository>
-    <id>ihaq-maven</id>
-    <url>http://maven.ihaq.me/libs-maven/</url>
+   <id>maven-public</id>
+   <url>http://nexus.ihaq.me/repository/maven-public/</url>
 </repository>
-
+```
+```xml
 <dependency>
     <groupId>me.ihaq</groupId>
     <artifactId>command-manager</artifactId>
-    <version>1.0.2</version>
+    <version>1.0</version>
 </dependency>
-```
-
-#### Gradle
-```gradle
-repositories {
-    maven {
-        url "http://maven.ihaq.me/libs-maven/"
-    }
-}
-
-dependencies {
-    compile 'me.ihaq:command-manager:1.0.2'
-}
 ```

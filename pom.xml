@@ -6,7 +6,7 @@
 
     <groupId>me.ihaq</groupId>
     <artifactId>command-manager</artifactId>
-    <version>1.0.2</version>
+    <version>1.0</version>
     <build>
         <plugins>
             <plugin>
@@ -21,9 +21,13 @@
     </build>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://nexus.ihaq.me/repository/maven-snapshots/</url>
+        </snapshotRepository>
         <repository>
-            <id>ihaq-maven</id>
-            <url>http://maven.ihaq.me:8080/repository/libs-maven/</url>
+            <id>nexus-releases</id>
+            <url>http://nexus.ihaq.me/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 

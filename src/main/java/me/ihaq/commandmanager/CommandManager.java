@@ -49,8 +49,9 @@ public class CommandManager {
      */
     public void parseCommand(String rawMessage) throws CommandParseException, CommandArgumentException {
 
-        if (!rawMessage.startsWith(prefix))
+        if (!rawMessage.startsWith(prefix)) {
             throw new CommandParseException("Message does not start with prefix.");
+        }
 
         boolean safe = rawMessage.split(prefix, 2).length > 1;
 
@@ -61,10 +62,11 @@ public class CommandManager {
             String[] args = beheadedRawMessage.split(" ");
             String commandName = args[0];
 
-            if (args.length == 1) // no arguments are provided
+            if (args.length == 1) {                 // no arguments are provided
                 args = new String[0];
-            else
+            } else {
                 args = Arrays.copyOfRange(args, 1, args.length); // removing the command name
+            }
 
             Command command = getCommand(commandName);
 
