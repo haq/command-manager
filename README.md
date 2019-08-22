@@ -1,4 +1,5 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg) ](LICENSE)
+[![](https://jitpack.io/v/haq/command-manager.svg)](https://jitpack.io/#haq/command-manager)
 
 # command-manager
 A simple command manager for Java application.
@@ -98,19 +99,4 @@ public class Main {
     }
 
 }
-```
-
-## Download
-```xml
-<repository>
-   <id>maven-public</id>
-   <url>http://nexus.ihaq.me/repository/maven-public/</url>
-</repository>
-```
-```xml
-<dependency>
-    <groupId>me.ihaq</groupId>
-    <artifactId>command-manager</artifactId>
-    <version>1.0</version>
-</dependency>
 ```
