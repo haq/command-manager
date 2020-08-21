@@ -99,3 +99,23 @@ public class Main {
 
 }
 ```
+
+## Download
+#### Repository
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+#### Dependency
+```xml
+<dependency>
+    <groupId>com.github.haq</groupId>
+    <artifactId>command-manager</artifactId>
+    <version>VERSION_NUMBER</version>
+</dependency>
+```
