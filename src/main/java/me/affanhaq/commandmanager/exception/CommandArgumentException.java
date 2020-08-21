@@ -1,4 +1,4 @@
-package me.ihaq.commandmanager.exception;
+package me.affanhaq.commandmanager.exception;
 
 public class CommandArgumentException extends Exception {
 

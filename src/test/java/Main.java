@@ -1,7 +1,7 @@
-import me.ihaq.commandmanager.Command;
-import me.ihaq.commandmanager.CommandManager;
-import me.ihaq.commandmanager.exception.CommandArgumentException;
-import me.ihaq.commandmanager.exception.CommandParseException;
+import me.affanhaq.commandmanager.Command;
+import me.affanhaq.commandmanager.CommandManager;
+import me.affanhaq.commandmanager.exception.CommandArgumentException;
+import me.affanhaq.commandmanager.exception.CommandParseException;
 
 public class Main {
     public static void main(String[] args) {

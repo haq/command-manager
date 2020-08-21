@@ -1,7 +1,9 @@
-package me.ihaq.commandmanager;
+package me.affanhaq.commandmanager;
 
-import me.ihaq.commandmanager.exception.CommandArgumentException;
-import me.ihaq.commandmanager.exception.CommandParseException;
+import me.affanhaq.commandmanager.exception.CommandArgumentException;
+import me.affanhaq.commandmanager.exception.CommandParseException;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,21 +11,22 @@ import java.util.Map;
 
 public class CommandManager {
 
-    private final Map<String[], Command> commandMap = new HashMap<>();
-    private String prefix;
+    private final Map<String[], Command> commandMap;
+    private final String prefix;
 
     /**
      * @param prefix the prefix you wan't to be used for the command manager
      */
-    public CommandManager(String prefix) {
+    public CommandManager(@NotNull String prefix) {
         this.prefix = prefix;
+        this.commandMap = new HashMap<>();
     }
 
     /**
      * @param name    the name of the command
      * @param command the command object that corresponds to the command
      */
-    public void register(String name, Command command) {
+    public void register(@NotNull String name, @NotNull Command command) {
         register(new String[]{name}, command);
     }
 
@@ -31,14 +34,14 @@ public class CommandManager {
      * @param names   the name/alias of the command
      * @param command the command object that corresponds to the command
      */
-    public void register(String[] names, Command command) {
+    public void register(@NotNull String[] names, @NotNull Command command) {
         commandMap.put(names, command);
     }
 
     /**
      * @param command the command object to be searched for and removed
      */
-    public void unregister(Command command) {
+    public void unregister(@NotNull Command command) {
         commandMap.entrySet().removeIf(entry -> entry.getValue() == command);
     }
 
@@ -47,7 +50,7 @@ public class CommandManager {
      * @throws CommandParseException    thrown if no command was found
      * @throws CommandArgumentException thrown if the command was run and its onCommand method returned false
      */
-    public void parseCommand(String rawMessage) throws CommandParseException, CommandArgumentException {
+    public void parseCommand(@NotNull String rawMessage) throws CommandParseException, CommandArgumentException {
 
         if (!rawMessage.startsWith(prefix)) {
             throw new CommandParseException("Message does not start with prefix.");
@@ -62,20 +65,19 @@ public class CommandManager {
             String[] args = beheadedRawMessage.split(" ");
             String commandName = args[0];
 
-            if (args.length == 1) {                 // no arguments are provided
+            if (args.length == 1) { // no arguments are provided
                 args = new String[0];
             } else {
                 args = Arrays.copyOfRange(args, 1, args.length); // removing the command name
             }
 
             Command command = getCommand(commandName);
-
-            if (command != null) {
-                if (!command.onCommand(args)) {
-                    throw new CommandArgumentException(command.usage());
-                }
-            } else {
+            if (command == null) {
                 throw new CommandParseException("Command not found.");
+            }
+
+            if (!command.onCommand(args)) {
+                throw new CommandArgumentException(command.usage());
             }
 
         } else {
@@ -89,7 +91,8 @@ public class CommandManager {
      * @param name The name of the command you are looking for, should be one of the commands aliases.
      * @return returns the Command if found
      */
-    private Command getCommand(String name) {
+    @Nullable
+    private Command getCommand(@NotNull String name) {
         return commandMap.entrySet().stream()
                 .filter(commandEntry -> Arrays.stream(commandEntry.getKey()).anyMatch(s -> s.equalsIgnoreCase(name)))
                 .map(Map.Entry::getValue)
@@ -99,6 +102,7 @@ public class CommandManager {
     /**
      * @return returns the HashMap that contains all the commands
      */
+    @NotNull
     public Map<String[], Command> getCommandMap() {
         return commandMap;
     }
@@ -106,6 +110,7 @@ public class CommandManager {
     /**
      * @return returns the prefix required for all commands
      */
+    @NotNull
     public String getPrefix() {
         return prefix;
     }
