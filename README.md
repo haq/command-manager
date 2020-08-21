@@ -1,27 +1,26 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg) ](LICENSE)
-[![](https://jitpack.io/v/haq/command-manager.svg)](https://jitpack.io/#haq/command-manager)
+[![jitpack](https://jitpack.io/v/haq/command-manager.svg)](https://jitpack.io/#haq/command-manager)
 
 # command-manager
-A simple command manager for Java application.
+A simple command manager for your Java application.
 
 ## Creating
-
 ```java
-    private class TestCommand implements Command {
+private class TestCommand implements Command {
 
-        @Override
-        public boolean onCommand(String[] args) {
+    @Override
+    public boolean onCommand(String[] args) {
 
-            // process your command
+        // process your command
 
-            return false; // whether the command was successful or not
-        }
-
-        @Override
-        public String usage() {
-            return "test [arg1] [arg2]";
-        }
+        return false; // whether the command was successful or not
     }
+
+    @Override
+    public String usage() {
+        return "test [arg1] [arg2]";
+    }
+}
 ```
 
 ## Registering
