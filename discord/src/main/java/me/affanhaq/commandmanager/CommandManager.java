@@ -2,6 +2,7 @@ package me.affanhaq.commandmanager;
 
 import me.affanhaq.commandmanager.exception.CommandArgumentException;
 import me.affanhaq.commandmanager.exception.CommandParseException;
+import net.dv8tion.jda.api.entities.User;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +16,7 @@ public class CommandManager {
     private final String prefix;
 
     /**
-     * @param prefix the prefix you wan't to be used for the command manager
+     * @param prefix the prefix you want to be used for the command manager
      */
     public CommandManager(@NotNull String prefix) {
         this.prefix = prefix;
@@ -50,7 +51,7 @@ public class CommandManager {
      * @throws CommandParseException    thrown if no command was found
      * @throws CommandArgumentException thrown if the command was run and its onCommand method returned false
      */
-    public void parseCommand(@NotNull String rawMessage) throws CommandParseException, CommandArgumentException {
+    public void parseCommand(@NotNull String rawMessage, @NotNull User user) throws CommandParseException, CommandArgumentException {
 
         if (!rawMessage.startsWith(prefix)) {
             throw new CommandParseException("Message does not start with prefix.");
@@ -76,7 +77,7 @@ public class CommandManager {
                 throw new CommandParseException("Command not found.");
             }
 
-            if (!command.onCommand(args)) {
+            if (!command.onCommand(user, args)) {
                 throw new CommandArgumentException(command.usage());
             }
 
