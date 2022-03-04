@@ -76,7 +76,7 @@ public class CommandManager {
                 throw new CommandParseException("Command not found.");
             }
 
-            if (!command.onCommand(args)) {
+            if (!command.handle(args)) {
                 throw new CommandArgumentException(command.usage());
             }
 

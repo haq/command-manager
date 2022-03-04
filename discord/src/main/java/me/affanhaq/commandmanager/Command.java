@@ -9,13 +9,18 @@ public interface Command {
      * Called on command execute.
      *
      * @param args the arguments for the command
-     * @return Whether the command was successful or not
+     * @return whether the command was successful or not
      */
-    boolean onCommand(@NotNull MessageReceivedEvent event, @NotNull String[] args);
+    boolean handle(@NotNull MessageReceivedEvent event, @NotNull String[] args);
 
     /**
-     * @return The usage of the command
+     * @return the usage of the command
      */
     String usage();
+
+    /**
+     * @return whether to delete the command after calling handle()
+     */
+    boolean delete();
 
 }

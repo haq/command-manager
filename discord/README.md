@@ -35,7 +35,7 @@ public class Main {
     private static class TestCommand implements Command {
 
         @Override
-        public boolean onCommand(@NotNull MessageReceivedEvent event, @NotNull String[] args) {
+        public boolean handle(@NotNull MessageReceivedEvent event, @NotNull String[] args) {
 
             // process your command
 
@@ -45,6 +45,11 @@ public class Main {
         @Override
         public String usage() {
             return "test [arg1] [arg2]";
+        }
+
+        @Override
+        public boolean delete() {
+            return false;
         }
     }
 

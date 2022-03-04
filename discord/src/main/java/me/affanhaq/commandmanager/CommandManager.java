@@ -78,8 +78,12 @@ public class CommandManager {
                 throw new CommandParseException("Command not found.");
             }
 
-            if (!command.onCommand(event, args)) {
+            if (!command.handle(event, args)) {
                 throw new CommandArgumentException(command.usage());
+            }
+            
+            if (command.delete()) {
+                event.getMessage().delete().queue();
             }
 
         } else {
