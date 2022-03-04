@@ -2,8 +2,7 @@ package me.affanhaq.commandmanager;
 
 import me.affanhaq.commandmanager.exception.CommandArgumentException;
 import me.affanhaq.commandmanager.exception.CommandParseException;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,21 +47,22 @@ public class CommandManager {
     }
 
     /**
-     * @param rawMessage the raw message entered by the user
      * @throws CommandParseException    thrown if no command was found
      * @throws CommandArgumentException thrown if the command was run and its onCommand method returned false
      */
-    public void parseCommand(@NotNull String rawMessage, @NotNull User user, @NotNull MessageChannel channel) throws CommandParseException, CommandArgumentException {
+    public void parseCommand(@NotNull MessageReceivedEvent event) throws CommandParseException, CommandArgumentException {
 
-        if (!rawMessage.startsWith(prefix)) {
+        String message = event.getMessage().getContentRaw();
+
+        if (!message.startsWith(prefix)) {
             throw new CommandParseException("Message does not start with prefix.");
         }
 
-        boolean safe = rawMessage.split(prefix, 2).length > 1;
+        boolean safe = message.split(prefix, 2).length > 1;
 
         if (safe) {
 
-            String beheadedRawMessage = rawMessage.substring(1);
+            String beheadedRawMessage = message.substring(1);
 
             String[] args = beheadedRawMessage.split(" ");
             String commandName = args[0];
@@ -78,7 +78,7 @@ public class CommandManager {
                 throw new CommandParseException("Command not found.");
             }
 
-            if (!command.onCommand(user, channel, args)) {
+            if (!command.onCommand(event, args)) {
                 throw new CommandArgumentException(command.usage());
             }
 

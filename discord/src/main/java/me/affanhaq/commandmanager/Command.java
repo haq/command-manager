@@ -1,7 +1,6 @@
 package me.affanhaq.commandmanager;
 
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
 public interface Command {
@@ -12,7 +11,7 @@ public interface Command {
      * @param args the arguments for the command
      * @return Whether the command was successful or not
      */
-    boolean onCommand(@NotNull User user, @NotNull MessageChannel channel, @NotNull String[] args);
+    boolean onCommand(@NotNull MessageReceivedEvent event, @NotNull String[] args);
 
     /**
      * @return The usage of the command

@@ -24,9 +24,9 @@ public class Main {
     }
 
     @Override
-    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         try {
-            COMMAND_MANAGER.parseCommand(event.getMessage().getContentRaw(), event.getAuthor(), event.getChannel());
+            COMMAND_MANAGER.parseCommand(event);
         } catch (CommandParseException | CommandArgumentException e) {
             e.printStackTrace();
         }
@@ -35,7 +35,7 @@ public class Main {
     private static class TestCommand implements Command {
 
         @Override
-        public boolean onCommand(@NotNull User user, @NotNull TextChannel textChannel, @NotNull String[] args) {
+        public boolean onCommand(@NotNull MessageReceivedEvent event, @NotNull String[] args) {
 
             // process your command
 
